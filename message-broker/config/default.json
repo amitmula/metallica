@@ -1,0 +1,22 @@
+{
+    "appConfig" : {
+        "port": 8091,
+        "appId": "message-broker-service",
+        "appName" : "Message Broker Service",
+        "healthCheckUrl": "/serverhealth"
+    },
+    "eurekaConfig" : {
+        "host": "localhost",
+        "port": 8761,
+        "servicePath": "/eureka/apps/",
+        "fetchRegistry": true,
+        "registerWithEureka": true,
+        "maxRetries": 2
+    },
+    "RabbitConfig" : {
+        "host": "localhost",
+        "port": 5672,
+        "trade_exchange_key": "trade",
+        "marketData_exchange_key": "marketData" 
+    }
+}

@@ -1,0 +1,53 @@
+zuul:
+  #Service will be mapped under the /api URI
+  prefix: /api
+  routes:
+    trade-service:
+      path: /trade-service/**
+      serviceId: TRADE-SERVICE
+    message-broker-service:
+      path: /message-broker-service/**
+      serviceId: MESSAGE-BROKER-SERVICE
+    notification-service:
+      path: /notification-service/**
+      serviceId: NOTIFICATION-SERVICE
+    ref-data-service:
+      path: /ref-data-service/**
+      serviceId: REF-DATA-SERVICE
+    market-data-service:
+      path: /market-data-service/**
+      serviceId: MARKET-DATA-SERVICE
+    
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka/
+    fetchRegistry: true
+    registerWithEureka: true
+  instance:
+    hostname: localhost
+
+server:
+  host: localhost
+  port: 8079
+
+spring:
+  application:
+    name: zuul-api-service
+    
+ref-data-service:
+  ribbon:
+    eureka:
+      enabled: true
+    ReadTimeout: 30000
+    ConnectTimeout: 30000
+
+# Increase the Hystrix timeout to 60s (for all)
+hystrix:
+  command:
+    default:
+      execution:
+        isolation:
+          thread:
+            timeoutInMilliseconds: 60000
