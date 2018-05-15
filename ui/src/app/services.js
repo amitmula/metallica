@@ -1,5 +1,8 @@
-const API_END_POINT = "http://localhost:8079/api";
-//const TRADE_SERVICE_API_END_POINT = "http://localhost:8999";
+import config from 'config';
+const API_END_POINT = config.apiEndPoint;
+const NS_END_POINT = config.nsEndPoint;
+console.log('API_END_POINT -> ', API_END_POINT);
+console.log('NS_END_POINT -> ', NS_END_POINT);
 const TRADE_SERVICE = API_END_POINT + "/trade-service";
 const REF_DATA_SERVICE = API_END_POINT + "/ref-data-service";
 const MARKET_DATA_SERVICE = API_END_POINT + "/market-data-service";

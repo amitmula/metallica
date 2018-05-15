@@ -7,17 +7,17 @@ import Col from "react-bootstrap/lib/Col";
 
 import { withStyles } from 'material-ui/styles';
 import Table, { TableBody, TableCell, TableHead, TableRow, TableFooter } from 'material-ui/Table';
+
 import Paper from 'material-ui/Paper';
-import Button from 'material-ui/Button';
+import Icon from 'material-ui/Icon';
 import AddIcon from 'material-ui-icons/Add';
+import Button from 'material-ui/Button';
 
 import CreateTrade from "./CreateTrade";
-import EditTrade from "./EditTrade";
 import ShowTrade from "./ShowTrade";
 
-import * as actions from "../state/actions";
-
 import io from 'socket.io-client';
+import config from 'config';
 
 const styles = theme => ({
   root: {
@@ -27,7 +27,7 @@ const styles = theme => ({
   },
   table: {
     minWidth: 700,
-  }
+  },
 });
 
 
@@ -41,9 +41,14 @@ class TradeList extends Component {
     }
   }
 
+  displayAlert(message) {
+    
+  }
+
   loadShowPanel(event, trade) {
     this.props.setSelected(trade);
     this.props.showRightPanel('showTrade');
+    this.props.updateTradeFormState(trade)
   }
 
   loadEditPanel() {
@@ -57,12 +62,40 @@ class TradeList extends Component {
       return false;
   }
 
+  createTrade() {
+    this.props.updateTradeFormState({
+      commodity: 'None', 
+      location: 'None', 
+      counterParty: 'None', 
+      tradeDate: '', 
+      price: '', 
+      quantity: '0', 
+      side: 'Buy', 
+      status: 'Open'
+    })    
+    this.props.showRightPanel('createTrade')
+  }
+
   deleteTrade(id) {
 
   }
 
+  filterTrades() {
+    return this.props.trades.filter(
+      trade => {
+        if(this.props.searchForm.commodity) {          
+          trade.commodity === this.props.searchForm.commodity
+        }
+      }
+    )
+  }
+
+  showDialog() {
+
+  }
+
   componentDidMount() {
-    this.state.socket = io.connect('http://localhost:8092');
+    this.state.socket = io.connect(config.nsEndPoint);
 
     // listen to messages on socket
     // built-in message
@@ -94,15 +127,15 @@ class TradeList extends Component {
       if (respData.action == 'update') {
         delete respData.action;
         delete respData._id;
+        let index = this.props.trades.findIndex(trade => trade.tradeId==respData.tradeId);        
         let filtered_trades = this.props.trades.filter(trade => trade.tradeId !== respData.tradeId)
-        filtered_trades.push(respData);
+        filtered_trades.splice(index, 0, respData);        
         this.props.trades.length = 0
         this.props.trades.push(...filtered_trades)
         let selected_trade = this.props.selected
         if(selected_trade.tradeId==respData.tradeId) {
           this.props.setSelected(respData);
         }
-        //console.log('filtered trades -----> ', JSON.stringify(filtered_trades))
         this.forceUpdate()
       }
 
@@ -113,14 +146,12 @@ class TradeList extends Component {
         this.props.showRightPanel('')
         this.forceUpdate()
       }
-      //this.props.actions.fetchTradeDataListAsync();
-      //console.log('this.state ----------> ', JSON.stringify(this.state))
 
     });
     this.state.socket.on('market data modified', (socketData) => {
       var respData = JSON.parse(socketData);
       if (respData.length > 0) {
-        // code to update market data price (element's price);
+        this.props.setPrice(respData)
       }
     });
   }
@@ -146,13 +177,6 @@ class TradeList extends Component {
       else
         return 12;
     }
-    const tableRowColSize = () => {
-      if (tableColSize() === 8)
-        return 'col-md-8';
-      else
-        return 'col-md-12';
-    }
-
     return (
       <div>
         <Row>
@@ -160,7 +184,7 @@ class TradeList extends Component {
             <Paper className={this.classes.root}>
               <Table className={this.classes.table} className="tradeList">
                 <TableHead>
-                  <TableRow >
+                  <TableRow>
                     <TableCell>Trade Date</TableCell>
                     <TableCell>Commodity</TableCell>
                     <TableCell>Side</TableCell>
@@ -171,18 +195,16 @@ class TradeList extends Component {
                   </TableRow>
                 </TableHead>
                 <TableBody>
-                  {this.props.trades.map((n, key) => {
+                  {this.props.trades.length ? 
+                  this.props.trades.map((n, index) => {
                     const isSelected = this.isSelected(n.tradeId);
                     return (
                       <TableRow
                         hover
                         onClick={event => this.loadShowPanel(event, n)}
-                        //onKeyDown={event => this.handleKeyDown(event, n.id)}
-                        //role="checkbox"
-                        //aria-checked={isSelected}
                         tabIndex={-1}
                         selected={isSelected}
-                        key={n.id}>
+                        key={index}>
                         <TableCell>
                           {
                             n.tradeDate
@@ -215,22 +237,16 @@ class TradeList extends Component {
                         </TableCell>
                       </TableRow>
                     );
-                  })}
+                  }):<TableRow><TableCell colSpan="7" className="noResults">No trades found</TableCell></TableRow>}
                 </TableBody>
                 <TableFooter>
                   <TableRow>
-                    <TableCell></TableCell>
-                    <TableCell></TableCell>
-                    <TableCell></TableCell>
-                    <TableCell></TableCell>
-                    <TableCell></TableCell>
-                    <TableCell></TableCell>
-                    <TableCell></TableCell>
+                    <TableCell colSpan="7" variant="footer"></TableCell>
                   </TableRow>
                 </TableFooter>
               </Table>
               <div className="fallRight">
-                <Button fab color="primary" aria-label="add" onClick={() => this.props.showRightPanel('createTrade')}>
+                <Button variant="fab" color="primary" aria-label="add" onClick={() => this.props.showRightPanel('createTrade')}>
                   <AddIcon />
                 </Button>
               </div>
@@ -238,26 +254,38 @@ class TradeList extends Component {
           </Col>
           <Col md={4} xs={12}>
             {showRightPanel === 'showTrade' && 
-            <ShowTrade trade={this.props.selected} 
+              <ShowTrade 
+                trade={this.props.selected} 
               data={this.props.data} 
               editAction={() => this.loadEditPanel()}
               showRightPanel={(panelName) => this.props.showRightPanel(panelName)}
-            />}
-            {showRightPanel === 'createTrade' && <CreateTrade isEditable='false' data={this.props.data} showRightPanel={(panelName) => this.props.showRightPanel(panelName)} />}
-            {showRightPanel === 'editTrade' && <CreateTrade isEditable='true' trade={this.props.selected} showRightPanel={(panelName) => this.props.showRightPanel(panelName)} />}
+                />
+              }
+            {showRightPanel === 'createTrade' && 
+              <CreateTrade 
+                isEdit='false' 
+                tradeForm={this.props.tradeForm}    
+                data={this.props.data} 
+                showRightPanel={(panelName) => this.props.showRightPanel(panelName)} 
+                updateTradeFormState={(tradeForm) => this.props.updateTradeFormState(tradeForm)}
+                setSelected={(trade) => this.props.setSelected(trade)}
+              />
+            }
+            {showRightPanel === 'editTrade' && 
+              <CreateTrade 
+                isEdit='true' 
+                tradeForm={this.props.tradeForm} 
+                data={this.props.data} 
+                trade={this.props.selected} 
+                showRightPanel={(panelName) => this.props.showRightPanel(panelName)}
+                updateTradeFormState={(tradeForm) => this.props.updateTradeFormState(tradeForm)}
+              />
+            }
           </Col>
         </Row>
       </div>
     );
   }
 }
-
-TradeList.defaultProps = {
-
-}
-
-TradeList.propTypes = {
-  classes: PropTypes.object.isRequired,
-};
 
 export default withStyles(styles)(TradeList);

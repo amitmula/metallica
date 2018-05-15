@@ -4,14 +4,14 @@ import { withStyles } from 'material-ui/styles';
 import AppBar from 'material-ui/AppBar';
 import Toolbar from 'material-ui/Toolbar';
 import Typography from 'material-ui/Typography';
-import IconButton from 'material-ui/IconButton';
-import MenuIcon from 'material-ui-icons/Menu';
-import AccountCircle from 'material-ui-icons/AccountCircle';
-import Switch from 'material-ui/Switch';
+import Button from 'material-ui/Button';
+import List from 'material-ui/List/List';
+import ListItem from 'material-ui/List/ListItem';
+import Avatar from 'material-ui/Avatar';
+import Chip from 'material-ui/Chip';
 import { FormControlLabel, FormGroup } from 'material-ui/Form';
-import Menu, { MenuItem } from 'material-ui/Menu';
 
-const styles = {
+const styles = theme => ({
   root: {
     width: '100%',
   },
@@ -22,11 +22,19 @@ const styles = {
     marginLeft: -12,
     marginRight: 20,
   },
-};
+  chip: {
+    margin: theme.spacing.unit,
+  }
+});
 
 class MenuAppBar extends React.Component {
+
+  constructor(props) {
+    super(props);
+    this.state = { user: props.userProfile };
+  }
+
   state = {
-    auth: true,
     anchorEl: null,
   };
 
@@ -34,51 +42,25 @@ class MenuAppBar extends React.Component {
     this.setState({ anchorEl: event.currentTarget });
   };
 
-  handleClose = () => {
-    this.setState({ anchorEl: null });
-  };
+  handleLogout = event => {
+    this.props.logout();
+  }
 
   render() {
     const { classes } = this.props;
-    const { auth, anchorEl } = this.state;
+    const { anchorEl } = this.state;
     const open = Boolean(anchorEl);
-
     return (
       <div className={classes.root}>
         <AppBar position="static" color="default">
           <Toolbar>
-            <Typography type="title" color="inherit" className={classes.flex}>
-              Metallica
-            </Typography>
-            {auth && (
-              <div>
-                <IconButton
-                  aria-owns={open ? 'menu-appbar' : null}
-                  aria-haspopup="true"
-                  onClick={this.handleMenu}
-                  color="inherit"
-                >
-                  <AccountCircle />
-                </IconButton>
-                <Menu
-                  id="menu-appbar"
-                  anchorEl={anchorEl}
-                  anchorOrigin={{
-                    vertical: 'top',
-                    horizontal: 'right',
-                  }}
-                  transformOrigin={{
-                    vertical: 'top',
-                    horizontal: 'right',
-                  }}
-                  open={open}
-                  onClose={this.handleClose}
-                >
-                  <MenuItem onClick={this.handleClose}>Profile</MenuItem>
-                  <MenuItem onClick={this.handleClose}>My account</MenuItem>
-                </Menu>
-              </div>
-            )}
+            <div style={{fontSize:'25px'}} className={classes.flex}><img className="logo" src="static/images/Logo.png" alt="Metallica Logo" />etallica</div>
+            <Chip
+              avatar={<Avatar src={this.state.user.imageUrl} />}
+              label={this.state.user.name}
+              className={classes.chip}
+            />
+            <Button variant="flat" className={classes.button} onClick={(e) => this.handleLogout(e)}>Logout</Button>            
           </Toolbar>
         </AppBar>
       </div>

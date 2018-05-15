@@ -1,5 +1,5 @@
 {
-  "name": "FSDAssignments-new",
+  "name": "metallica",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -17,12 +17,13 @@
     "html-webpack-plugin": "^2.30.1",
     "jquery": "^3.2.1",
     "lodash": "^4.17.4",
-    "material-ui": "^1.0.0-beta.23",
-    "material-ui-icons": "^1.0.0-beta.17",
+    "material-ui": "^1.0.0-beta.47",
+    "material-ui-icons": "^1.0.0-beta.36",
     "prop-types": "^15.6.0",
     "react": "^16.1.1",
     "react-bootstrap": "^0.31.5",
     "react-dom": "^16.2.0",
+    "react-google-login": "^3.2.1",
     "react-icons-kit": "^1.0.7",
     "react-redux": "^5.0.6",
     "react-router-dom": "^4.2.2",
@@ -40,6 +41,7 @@
     "babel-preset-react": "^6.24.1",
     "babel-preset-stage-2": "^6.24.1",
     "extract-text-webpack-plugin": "^3.0.2",
+    "mocha": "^5.0.4",
     "webpack": "^3.8.1",
     "webpack-dev-server": "^2.9.4"
   }

@@ -1,6 +1,6 @@
 {
     "appConfig" : {
-        "port": 8092,
+        "port": 9092,
         "appId": "notification-service",
         "appName" : "Notification Service",
         "healthCheckUrl": "/serverhealth"

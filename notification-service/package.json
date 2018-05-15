@@ -1,7 +1,7 @@
 {
-  "name": "message-broker",
+  "name": "notification-service",
   "version": "1.0.0",
-  "description": "Message Broker Serivce for pushing trade and market data updates to RabbitMQ",
+  "description": "Notification service for fetching trade and market data updates from RabbitMQ exchange and sending to UI through websockets",
   "repository": {
     "type": "git",
     "url": "https://amula@del.tools.publicis.sapient.com/bitbucket/scm/seaep/132650-amit-mula.git"

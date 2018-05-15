@@ -12,20 +12,28 @@ import Tabs, { Tab } from 'material-ui/Tabs';
 import IconButton from 'material-ui/IconButton';
 import Icon from 'react-icons-kit';
 import { user } from 'react-icons-kit/fa/user';
-import Trade from "../trade/container/TradeContainer";
+import Trades from "../trade/container/TradeContainer";
 import Transfers from "./Transfers";
 import Transports from "./Transports";
+import grey from 'material-ui/colors/grey';
+import orange from 'material-ui/colors/orange';
+import { MuiThemeProvider, createMuiTheme } from 'material-ui/styles';
+
+const theme = createMuiTheme({
+  palette: {
+    primary: { main: grey[900] },
+    secondary: orange,
+  }
+});
 
 const styles = theme => ({
   root: {
-    marginTop: theme.spacing.unit,
-    //width: '100%',
-    backgroundColor: theme.palette.background.paper,
+    marginTop: theme.spacing.unit
   },
 });
 
 function TabContainer(props) {
-  return <div style={{ padding: 8 * 3 }}>{props.children}</div>;
+  return <div className="tabContainer">{props.children}</div>;
 }
 
 TabContainer.propTypes = {
@@ -37,21 +45,9 @@ class Home extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      tabValue: props.tabValue,
-      userName: 'sapient'
+      tabValue: props.tabValue
     }
-
     this.classes = props;
-  }
-
-  componentDidMount() {
-    // var authURL = "http://localhost:9998/refdata/username";
-    // fetch(authURL)
-    //   .then(results => {
-    //     return results.json;
-    //   }).then(data => {
-    //     console.log(data);
-    //   })
   }
 
   handleChange = (event, value) => {
@@ -60,23 +56,22 @@ class Home extends Component {
   };
 
   render() {
-
     const tab = this.state.tabValue;
-    const uname = this.state.userName;
-
     return (
-      <div className={this.classes.root}>
-        <AppBar position="static">
-          <Tabs value={tab} onChange={this.handleChange}>
-            <Tab value="trades" label="TRADES" />
-            <Tab value="transfers" label="TRANSFERS" />
-            <Tab value="transports" label="TRANSPORTS" />
-          </Tabs>
-        </AppBar>
-        {tab === 'trades' && <TabContainer><Trade /></TabContainer>}
-        {tab === 'transfers' && <TabContainer><Transfers /></TabContainer>}
-        {tab === 'transports' && <TabContainer><Transports /></TabContainer>}
-      </div>
+      <MuiThemeProvider theme={theme}>        
+        <div className={this.classes.root}>
+          <AppBar position="static" color="primary">
+            <Tabs value={tab} onChange={this.handleChange}>
+              <Tab value="trades" label="TRADES" />
+              <Tab value="transfers" label="TRANSFERS" />
+              <Tab value="transports" label="TRANSPORTS" />
+            </Tabs>
+          </AppBar>
+          {tab === 'trades' && <TabContainer><Trades /></TabContainer>}
+          {tab === 'transfers' && <TabContainer><Transfers /></TabContainer>}
+          {tab === 'transports' && <TabContainer><Transports /></TabContainer>}
+        </div>
+      </MuiThemeProvider>
     );
   }
 

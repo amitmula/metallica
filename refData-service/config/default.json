@@ -1,6 +1,6 @@
 {
     "appConfig" : {
-        "port": 8093,
+        "port": 9093,
         "appId": "ref-data-service",
         "appName" : "Ref Data Service",
         "healthCheckUrl": "/serverhealth"

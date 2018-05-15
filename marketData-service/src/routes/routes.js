@@ -45,14 +45,4 @@ routes.post('/price/save', (req, res) => {
   })
 });
 
-routes.post('/trade/save', (req, res) => {
-  tradeService.save(req.body).then( response => {    
-    res.end(JSON.stringify(response))
-  }).catch(err => {
-    console.error(err)
-    res.end(JSON.stringify(err));
-  })
-});
-
-
 export default routes;

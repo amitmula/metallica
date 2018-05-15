@@ -9,6 +9,7 @@ import Typography from 'material-ui/Typography';
 import Icon from 'react-icons-kit';
 import { bin } from 'react-icons-kit/icomoon/bin';
 import { pencil } from 'react-icons-kit/icomoon/pencil';
+import { cancelCircle } from 'react-icons-kit/icomoon/cancelCircle';
 import Table, { TableBody, TableCell, TableHead, TableRow } from 'material-ui/Table';
 
 export default class ShowTrade extends Component {
@@ -40,13 +41,14 @@ export default class ShowTrade extends Component {
     return (
       <Paper className={this.classes.root}>
         <AppBar position="static">
-          <Toolbar>
+          <Toolbar className="sideHeader">
             <Typography type="Subheading" color="default">
               Trade ID: {this.props.trade.tradeId}
             </Typography>
             <div className="stickRight">
               <Icon icon={pencil} onClick={() => this.props.editAction()} />
               <Icon icon={bin} onClick={() => this.deleteTrade(this.props.trade.tradeId)} />
+              <Icon icon={cancelCircle} onClick={() => this.props.showRightPanel('none')} />
             </div >
           </Toolbar>
         </AppBar>
@@ -103,10 +105,6 @@ export default class ShowTrade extends Component {
       </Paper>
     )
   }
-}
-
-ShowTrade.defaultProps = {
-
 }
 
 ShowTrade.PropTypes = {

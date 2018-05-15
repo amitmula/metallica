@@ -1,6 +1,6 @@
 {
     "appConfig" : {
-        "port": 8090,
+        "port": 9090,
         "appId": "trade-service",
         "appName" : "Trade Service",
         "healthCheckUrl": "/serverhealth"

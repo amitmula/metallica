@@ -1,5 +1,5 @@
 //const _ = require('lodash');
-import * as ActionTypes from "./ActionTypes";
+import * as ActionTypes from "./TradeActionTypes";
 import * as service from "../../Services";
 
 export const showRightPanel = (panelName) => {
@@ -17,6 +17,49 @@ export const setSelected = (trade) => {
     payload: {
       trade: trade
     }
+  }
+}
+
+export const updateSearchFormstate = (searchFormState) => {
+  return {
+    type: ActionTypes.UPDATE_SEARCH_FORM_STATE,
+    payload: {
+      searchForm: searchFormState
+    }
+  }
+}
+
+export const updateTradeFormstate = (tradeFormState) => {
+  return {
+    type: ActionTypes.UPDATE_TRADE_FORM_STATE,
+    payload: {
+      tradeForm: tradeFormState
+    }
+  }
+}
+
+export const updatePrices = (marketData) => {
+  return {
+    type: ActionTypes.UPDATE_MARKET_DATA,
+    payload: {
+      prices: marketData
+    }
+  }
+}
+
+export const setSearchMode = (searchMode) => {
+  return {
+    type: ActionTypes.SET_SEARCH_MODE,
+    payload: {
+      searchMode: searchMode
+    }
+  }
+}
+
+export const resetSearch = () => {
+  return {
+    type: ActionTypes.RESET_SEARCH_MODE,
+    payload: {}
   }
 }
 
@@ -56,15 +99,6 @@ export const editTrade = trade => {
   }
 }
 
-export function initTrades(trades) {
-  return {
-    type: ActionTypes.INIT_TRADES,
-    payload: {
-      trades: trades
-    }
-  }
-}
-
 export function initCommodities(commodities) {
   return {
     type: ActionTypes.INIT_COMMODITIES,
@@ -74,16 +108,7 @@ export function initCommodities(commodities) {
   }
 }
 
-export function initLocations(locations) {
-  return {
-    type: ActionTypes.INIT_LOCATIONS,
-    payload: {
-      locations: locations
-    }
-  }
-}
-
-export function initCounterparties(counterparties) {
+export function initCounterParties(counterparties) {
   return {
     type: ActionTypes.INIT_COUNTERPARTIES,
     payload: {
@@ -97,6 +122,24 @@ export function initPrices(prices) {
     type: ActionTypes.INIT_PRICES,
     payload: {
       prices: prices
+    }
+  }
+}
+
+export function initLocations(locations) {
+  return {
+    type: ActionTypes.INIT_LOCATIONS,
+    payload: {
+      locations: locations
+    }
+  }
+}
+
+export function initTrades(trades) {
+  return {
+    type: ActionTypes.INIT_TRADES,
+    payload: {
+      trades: trades
     }
   }
 }
@@ -120,36 +163,14 @@ export function initError(error) {
   }
 }
 
-// export function fetchTradesAsync() {
-//   //thunk shall pass the dispatch
-//   return async function (dispatch, getState) {
-//     //no error
-//     dispatch(initError(false));
-//     dispatch(loading(true));
 
-//     try {
-//       let trades = await service.getTrades();
-//       dispatch(initTrades(trades));
-//       dispatch(loading(false));
-//     } catch (error) {
-//       dispatch(loading(false));
-//       dispatch(initError(error.toString()));
-//     }
-//   }
-// }
-
-export function fetchTradeDataListAsync() {
-  //thunk shall pass the dispatch
+export function fetchTradesAsync() {
   return async function (dispatch, getState) {
-    //no error
     dispatch(initError(false));
     dispatch(loading(true));
-
     try {
       let trades = await service.getTradeDataList()
       dispatch(initTrades(trades))
-      dispatch(loading(false));
-
     } catch (error) {
       dispatch(loading(false));
       dispatch(initError(error.toString()));
@@ -157,56 +178,19 @@ export function fetchTradeDataListAsync() {
   }
 }
 
-export function fetchCommodityListAsync() {
+export function fetchRefDataAsync() {
   //thunk shall pass the dispatch
   return async function (dispatch, getState) {
     //no error
     dispatch(initError(false));
     dispatch(loading(true));
-
     try {
       let commodities = await service.getCommodityList()
-      dispatch(initCommodities(commodities))
-      dispatch(loading(false));
-
-    } catch (error) {
-      dispatch(loading(false));
-      dispatch(initError(error.toString()));
-    }
-  }
-}
-
-export function fetchLocationListAsync() {
-  //thunk shall pass the dispatch
-  return async function (dispatch, getState) {
-    //no error
-    dispatch(initError(false));
-    dispatch(loading(true));
-
-    try {
       let locations = await service.getLocationList()
-      dispatch(initLocations(locations))
-      dispatch(loading(false));
-
-    } catch (error) {
-      dispatch(loading(false));
-      dispatch(initError(error.toString()));
-    }
-  }
-}
-
-export function fetchCounterpartyListAsync() {
-  //thunk shall pass the dispatch
-  return async function (dispatch, getState) {
-    //no error
-    dispatch(initError(false));
-    dispatch(loading(true));
-
-    try {
       let counterparties = await service.getCounterPartyList()
-      dispatch(initCounterparties(counterparties))
-      dispatch(loading(false));
-
+      dispatch(initCommodities(commodities))
+      dispatch(initLocations(locations))
+      dispatch(initCounterParties(counterparties))
     } catch (error) {
       dispatch(loading(false));
       dispatch(initError(error.toString()));
@@ -214,18 +198,21 @@ export function fetchCounterpartyListAsync() {
   }
 }
 
-export function fetchMarketPriceListAsync() {
+export function setAsyncFetchComplete() {
+  return async function (dispatch, getState) {
+    dispatch(loading(false))    //key to start rendering //last call to fetch data from services
+  }
+}
+
+export function fetchMarketDataAsync() {
   //thunk shall pass the dispatch
   return async function (dispatch, getState) {
     //no error
     dispatch(initError(false));
     dispatch(loading(true));
-
     try {
-      let prices = await service.getCommodityPriceList()
-      dispatch(initPrices(prices))
-      dispatch(loading(false));
-
+      let prices = await service.getCommodityPriceList()      
+      dispatch(initPrices(prices))      
     } catch (error) {
       dispatch(loading(false));
       dispatch(initError(error.toString()));

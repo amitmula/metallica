@@ -1,6 +1,6 @@
 {
     "appConfig" : {
-        "port": 8091,
+        "port": 9091,
         "appId": "message-broker-service",
         "appName" : "Message Broker Service",
         "healthCheckUrl": "/serverhealth"

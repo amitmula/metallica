@@ -1,6 +1,6 @@
 {
     "appConfig" : {
-        "port": 8094,
+        "port": 9094,
         "appId": "market-data-service",
         "appName" : "Market Data Service",
         "healthCheckUrl": "/serverhealth"

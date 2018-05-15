@@ -11,8 +11,8 @@ const MARKET_DATA_MODIFIED = {
 exports.startConsumers = (args, topicKey, io) => {
   let connStr = 'amqp://' + config.get('RabbitConfig.host') + ':' + config.get('RabbitConfig.port')
 	amqp.connect(connStr, (err, conn) => {
-		conn.createChannel((err, ch) => {
-				var ex = 'topic_' + topicKey;
+    conn.createChannel((err, ch) => {
+        var ex = 'topic_' + topicKey;
 				ch.assertExchange(ex, 'topic', {durable: false});
 				ch.assertQueue('', {exclusive: true}, (err, q) => {
 					console.log(' [*] Waiting for messages in %s. To exit press CTRL+C', q.queue);
@@ -20,8 +20,10 @@ exports.startConsumers = (args, topicKey, io) => {
 						ch.bindQueue(q.queue, ex, key);
 					});
 					ch.consume(q.queue, function(msg) {
-            //marketData updates here
-						io.in(TRADE_MODIFIED.channel).emit('trade data modified', msg.content.toString());  
+            if(topicKey === 'trade')
+              io.in(TRADE_MODIFIED.channel).emit(TRADE_MODIFIED.channel, msg.content.toString());
+            else
+              io.in(MARKET_DATA_MODIFIED.channel).emit(MARKET_DATA_MODIFIED.channel, msg.content.toString());
 						console.log(" [x] %s:'%s'", msg.fields.routingKey, msg.content.toString());
 					}, {noAck: true});
 				});
