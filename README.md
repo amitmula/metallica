@@ -12,9 +12,9 @@
 3. [Trade service](#trade-service)
 4. [Message broker](#message-broker)
 5. [Notification service](#notifcation-service)
-6. Ref data service
-7. Market data service
-8. Metallica UI
+6. [Ref data service](#ref-data-service)
+7. [Market data service](#market-data-service)
+8. [Metallica UI](#metallica-ui)
 
 * * *
 <a name="mongo"></a> 
@@ -112,7 +112,7 @@ this will start message broker accessible through http://localhost:8079/api/mess
 
 <a name="notifcation-service"></a> 
 ## Notification service
-NodeJS micro service to read messages from Rabbit MQ trade-data and market-data exchanges and push notification to UI through web socket I/O.
+NodeJS micro service to read messages from Rabbit MQ's trade-data and market-data exchanges and push notification to UI through web socket I/O.
 ```sh
 $ cd notification-service
 $ npm install
@@ -144,7 +144,7 @@ this will start ref-data-service accessible through http://localhost:8079/api/re
 
 
 <a name="metallica-ui"></a> 
-## Metallica
+## Metallica UI
 This is the actual React application to implement the Metallica web application to initiate, update, search trades. Market data notifications are displayed on a price ticker component and all trade operations are updated in UI through web sockets I/O with notification service.
 ```sh
 $ cd ui
