@@ -11,7 +11,7 @@
 2. [Start Zuul API gateway service](#zuul)
 3. [Trade service](#trade-service)
 4. [Message broker](#message-broker)
-5. Notification service
+5. [Notification service](#notifcation-service)
 6. Ref data service
 7. Market data service
 8. Metallica UI
@@ -103,15 +103,58 @@ this will start trade service accessible through http://localhost:8079/api/trade
 ## Message broker service
 NodeJS micro service to expose http endpoints to RabbitMQ message exchange.
 ```sh
-$ cd trade-service
+$ cd message-broker
 $ npm install
 $ npm start
 ```
-this will start trade service accessible through http://localhost:8079/api/message-broker
+this will start message broker accessible through http://localhost:8079/api/message-broker
 
+
+<a name="notifcation-service"></a> 
+## Notification service
+NodeJS micro service to read messages from Rabbit MQ trade-data and market-data exchanges and push notification to UI through web socket I/O.
+```sh
+$ cd notification-service
+$ npm install
+$ npm start
+```
+this will start notification service accessible through http://localhost:8079/api/notification-service
+
+
+<a name="market-data-service"></a> 
+## Market Data service
+NodeJS micro service to access and manage market prices. It has various endpoints to read and update market prices for various commodities traded in Metallica.
+```sh
+$ cd market-data-service
+$ npm install
+$ npm start
+```
+this will start market-data-service accessible through http://localhost:8079/api/market-data-service
+
+
+<a name="ref-data-service"></a> 
+## Ref Data service
+NodeJS micro service to access and manage Metallica ref data viz. commmodities, Counterparties and Locations used in Metallica.
+```sh
+$ cd ref-data-service
+$ npm install
+$ npm start
+```
+this will start ref-data-service accessible through http://localhost:8079/api/ref-data-service
+
+
+<a name="metallica-ui"></a> 
+## Metallica
+This is the actual React application to implement the Metallica web application to initiate, update, search trades. Market data notifications are displayed on a price ticker component and all trade operations are updated in UI through web sockets I/O with notification service.
+```sh
+$ cd ui
+$ npm install
+$ npm start
+```
+this will start Metallica UI accessible through http://localhost:8095
 
 
 ### Pending Features:
-  - Search functure for trades list
-  - market data update notifications
+  - ~~Search functure for trades list~~
+  - ~~market data update notifications~~
   - Unit tests and system integration test

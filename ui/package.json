@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "start1": "webpack-dev-server --config  config/webpack.config.js --hot --inline --progress --open --host 0.0.0.0",
     "start": "webpack-dev-server --config  config/webpack.config.js --hot --inline --progress --open",
     "build": "webpack --config  config/webpack.prod.config.js  --progress"
   },

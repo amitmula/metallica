@@ -1,6 +1,8 @@
 const request = require('request');
 const mongoDB = require('../db/mongoDB');
-
+const config = require('config');
+const apiEndpoint = config.get('apiEndpoint.protocol') + "://" + config.get('apiEndpoint.host') + ":" + config.get("apiEndpoint.port") + "/" + config.get("apiEndpoint.contextPath");
+const messageBrokerService = apiEndpoint + "/" + config.get("messageBroker.serviceId");
 class MarketDataService {
   constructor() {
     this.priceRefreshInterval = 60 * 1000;
@@ -12,8 +14,7 @@ class MarketDataService {
     return Math.floor(Math.random() * (this.priceBracket.max - this.priceBracket.min)) + this.priceBracket.min;
   }
 
-  setCommodityPrices(_commodityPrices) {
-    console.log('_commodityPrices ----------> ', JSON.stringify(_commodityPrices))
+  setCommodityPrices(_commodityPrices) {    
     return new Promise((resolve, reject) => {
       _commodityPrices.map(metalPrice => {
         this.setCommodityPrice(metalPrice.symbol, metalPrice.price)
@@ -81,7 +82,7 @@ class MarketDataService {
 
   sendDataToMessageBroker(marketData) {
     var options = {
-      url: "http://localhost:8091/addToMarketDataQueue",
+      url: messageBrokerService + "/addToMarketDataQueue",
       method: 'POST',
       json: marketData
     };

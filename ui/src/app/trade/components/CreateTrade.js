@@ -261,6 +261,16 @@ export default class CreateTrade extends Component {
                   </FormControl>
                 </td>
               </tr>
+              <tr>
+                <td>
+                  {
+                    // if (this.props.validation.errors) {
+
+                    // }
+                  }
+                  Errors : 
+                </td>
+              </tr>
             </tbody>
           </table>
         </div>

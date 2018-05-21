@@ -103,7 +103,9 @@ var config = {
   devServer: {
     contentBase: APP_DIR,
     port: 8095,
-
+    //compress: true,
+    //disableHostCheck: true,
+    //public: 'WKWIN6492992.global.publicisgroupe.net:8095',
     //for supporting history api fallback
     historyApiFallback: {
       index: '/'

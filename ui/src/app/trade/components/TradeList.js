@@ -95,19 +95,20 @@ class TradeList extends Component {
   }
 
   componentDidMount() {
+    console.log('----------> joining config.nsEndPoint', config.nsEndPoint)
     this.state.socket = io.connect(config.nsEndPoint);
 
     // listen to messages on socket
     // built-in message
     this.state.socket.on('connect', () => {
       this.state.socket.emit('join channel', 'tradeDataModified', function (confirmation) {
-        console.log(confirmation);
+        console.log("joined channel tradeDataModified -> ", confirmation);
       });
     });
 
     this.state.socket.on('connect', () => {
       this.state.socket.emit('join channel', 'marketDataModified', function (confirmation) {
-        console.log(confirmation);
+        console.log("joined channel marketDataModified ->", confirmation);
       });
     });
 
@@ -151,7 +152,7 @@ class TradeList extends Component {
     this.state.socket.on('market data modified', (socketData) => {
       var respData = JSON.parse(socketData);
       if (respData.length > 0) {
-        this.props.setPrice(respData)
+        this.props.setPrice(respData)        
       }
     });
   }
@@ -246,7 +247,7 @@ class TradeList extends Component {
                 </TableFooter>
               </Table>
               <div className="fallRight">
-                <Button variant="fab" color="primary" aria-label="add" onClick={() => this.props.showRightPanel('createTrade')}>
+                <Button variant="fab" color="primary" aria-label="add" onClick={() => this.createTrade()}>
                   <AddIcon />
                 </Button>
               </div>

@@ -22,7 +22,7 @@ export default class App extends Component {
   };
 
   googleResponse = (response) => {
-    console.log(response.profileObj);
+    console.log("googleResponse -> ", response.profileObj);
     this.setState({isAuthenticated: true, user: response.profileObj, token: response.accessToken});
   };
   
@@ -31,6 +31,7 @@ export default class App extends Component {
   }
 
   render() {
+    console.log("this.state.isAuthenticated -> ", this.state.isAuthenticated);
     let content = !!this.state.isAuthenticated ?
     (
       <Grid>

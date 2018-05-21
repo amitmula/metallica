@@ -18,5 +18,14 @@
         "port": 27017,
         "dbName": "metallica",
         "collection": "trades" 
+    },
+    "apiEndpoint" : {
+      "protocol" : "http",
+      "host" : "localhost",
+      "port" : 8079,
+      "contextPath" : "api"
+    },
+    "messageBroker" : {
+      "serviceId" : "message-broker-service"
     }
 }

@@ -2,9 +2,11 @@ import { createStore, combineReducers, applyMiddleware } from 'redux';
 import thunkMiddleware from 'redux-thunk';
 
 import tradeReducer from './trade/state/TradeReducer';
+import marketDataTickerReducer from './marketDataTicker/state/MarketDataTickerReducer';
 
 const metallicaReducer = combineReducers({
   tradeState: tradeReducer,
+  marketDataTickerState: marketDataTickerReducer
 })
 
 const logger = (store) => (next) => (action) => {

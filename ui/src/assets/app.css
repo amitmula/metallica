@@ -77,7 +77,6 @@ td {
 #searchForm {
   padding: 20px 15px 0px;
   background-color:#f5f5f5;
-  margin:10px 0;
 }
 
 #searchForm > form > div > div > div > div > div > div {
@@ -144,3 +143,33 @@ td {
   margin-top:10px;
 }
 
+.ticker {
+  display:inline-block;
+  border-right:solid 1px orange;
+}
+
+.ticker > .symbol {
+  background-color: #212121;
+  color: #FFF;
+  padding: 0 7px 0 20px;
+  height: 20px;
+  display: inline-block;
+  line-height: 20px;
+  font-size: 12px;
+}
+
+.ticker > .price {
+  background-color: #212121;
+  color: orange;
+  padding: 0 20px 0 7px;
+  height: 20px;
+  display: inline-block;
+  line-height: 20px;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.tickerContainer {
+  padding-top: 2px;
+  background-color: #e0e0e0;
+}

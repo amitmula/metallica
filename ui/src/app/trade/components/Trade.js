@@ -3,12 +3,14 @@ import PropTypes from 'prop-types';
 
 import Grid from "react-bootstrap/lib/Grid";
 import Row from "react-bootstrap/lib/Row";
-
+import Paper from 'material-ui/Paper';
 import Button from 'material-ui/Button';
 import AddIcon from 'material-ui-icons/Add';
 
 import SearchForm from "./SearchForm";
 import TradeList from "./TradeList";
+
+import MarketDataTicker from "../../marketDataTicker/container/MarketDataTickerContainer";
 
 import * as actions from "../state/TradeActions";
 
@@ -62,6 +64,9 @@ export default class Trade extends Component {
     return (this.props.loading ? <div>data loading...</div> : 
       <div>
         <Row>
+          <MarketDataTicker></MarketDataTicker>
+        </Row>
+        <Row>          
           <SearchForm 
             updateSearchFormState={(searchForm) => this.updateSearchFormState(searchForm)}
             searchForm={this.props.searchForm}            

@@ -1,6 +1,9 @@
 import Trade from '../model/trade';
 const request = require('request');
 const mongoDB = require('../db/mongoDB');
+const config = require('config');
+const apiEndpoint = config.get('apiEndpoint.protocol') + "://" + config.get('apiEndpoint.host') + ":" + config.get("apiEndpoint.port") + "/" + config.get("apiEndpoint.contextPath");
+const messageBrokerService = apiEndpoint + "/" + config.get("messageBroker.serviceId");
 
 class TradeService {
   constructor() {
@@ -217,7 +220,7 @@ class TradeService {
 
   sendDataToMessageBroker(tradeData) {
     var options = {
-      url: "http://localhost:8091/addToTradeQueue",
+      url: messageBrokerService + "/addToTradeQueue",
       method: 'POST',
       json: tradeData
     };

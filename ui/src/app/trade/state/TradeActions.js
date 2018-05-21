@@ -1,4 +1,3 @@
-//const _ = require('lodash');
 import * as ActionTypes from "./TradeActionTypes";
 import * as service from "../../Services";
 
