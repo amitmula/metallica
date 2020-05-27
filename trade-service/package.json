@@ -1,7 +1,7 @@
 {
   "name": "trade-service",
   "version": "1.0.0",
-  "description": "Trade Serivce using ES7, express4 for Metallica",
+  "description": "Trade Serivce for Metallica",
   "repository": {
     "type": "git",
     "url": "https://amula@del.tools.publicis.sapient.com/bitbucket/scm/seaep/132650-amit-mula.git"
