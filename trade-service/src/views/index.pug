@@ -3,3 +3,19 @@ extends layout
 block content
   h1= title
   p version #{version}
+  p Host Info
+  table(class='hostInfo')
+    tr
+      th Hostname
+      th Platform
+      th CPU Arch
+      th Uptime
+      th Total Memory
+      th Free Memory
+    tr
+      td #{hostInfo.name}
+      td #{hostInfo.type}
+      td #{hostInfo.cpuArch}
+      td #{hostInfo.uptime}
+      td #{hostInfo.totalMem}
+      td #{hostInfo.freeMem}
