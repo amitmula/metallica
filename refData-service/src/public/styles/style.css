@@ -4,5 +4,22 @@ body {
 }
 
 a {
-  color: #00B7FF;
+  color: #00b7ff;
+}
+
+.hostInfo {
+  width: 50%;
+  border-bottom: solid 1px #ccc;
+}
+
+.hostInfo th,
+td {
+  text-align: center;
+  border-top: solid 1px #ccc;
+  border-left: solid 1px #ccc;
+}
+
+.hostInfo th:last-child,
+td:last-child {
+  border-right: solid 1px #ccc;
 }

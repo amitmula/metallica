@@ -1,1 +1,7 @@
-[{"symbol":"NYC","name":"NewYork"},{"symbol":"LON","name":"London"},{"symbol":"TOK","name":"Tokyo"},{"symbol":"HON","name":"Hong Kong"},{"symbol":"DUB","name":"Dublic"}]
+[
+  { "symbol": "NYC", "name": "NewYork" },
+  { "symbol": "LON", "name": "London" },
+  { "symbol": "TOK", "name": "Tokyo" },
+  { "symbol": "HON", "name": "Hong Kong" },
+  { "symbol": "DUB", "name": "Dublic" }
+]

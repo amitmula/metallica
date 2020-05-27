@@ -1,1 +1,30 @@
-[{"symbol":"FDBK","name":"Federal Bank"},{"symbol":"ZEEE","name":"Zee Entertainment"},{"symbol":"PFZR","name":"Pfizer"},{"symbol":"ABBI","name":"ABB India"},{"symbol":"AVSM","name":"Avenue Supermarts"},{"symbol":"HUL","name":"Hindustan Unilever"},{"symbol":"KM","name":"Kotak Mahindra"}]
+[
+  {
+    "symbol": "FDBK",
+    "name": "Federal Bank"
+  },
+  {
+    "symbol": "ZEEE",
+    "name": "Zee Entertainment"
+  },
+  {
+    "symbol": "PFZR",
+    "name": "Pfizer"
+  },
+  {
+    "symbol": "ABBI",
+    "name": "ABB India"
+  },
+  {
+    "symbol": "AVSM",
+    "name": "Avenue Supermarts"
+  },
+  {
+    "symbol": "HUL",
+    "name": "Hindustan Unilever"
+  },
+  {
+    "symbol": "KM",
+    "name": "Kotak Mahindra"
+  }
+]

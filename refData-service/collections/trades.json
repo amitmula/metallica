@@ -1,6 +1,6 @@
 [
   {
-	"tradeId": 1001,
+    "tradeId": 1001,
     "tradeDate": "23-03-2017",
     "commodity": "AL",
     "side": "Buy",
@@ -10,7 +10,7 @@
     "location": "SG"
   },
   {
-	"tradeId": 1002,
+    "tradeId": 1002,
     "tradeDate": "23-03-2017",
     "commodity": "ZN",
     "side": "Sell",
@@ -19,4 +19,4 @@
     "counterParty": "FDBK",
     "location": "LN"
   }
-] 
+]
