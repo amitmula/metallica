@@ -35,6 +35,10 @@ class DataStoreClient {
       });
     });
   };
+
+  delete = async (entityKey) => {
+    return this.datastoreClient.delete(entityKey);
+  };
 }
 
 module.exports = DataStoreClient;
