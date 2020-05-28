@@ -1,7 +1,7 @@
 import { Router } from "express";
 
 const routes = Router();
-const RefDataService = require("../service/RefDataService");
+const RefDataService = require("../service");
 const pjson = require("../../package.json");
 const config = require("config");
 const os = require("os");

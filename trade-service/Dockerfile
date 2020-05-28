@@ -1,10 +1,7 @@
-FROM alpine
-
-RUN apk add --update nodejs npm
-
+FROM node:alpine
 ADD package.json package.json
 RUN npm install
 COPY . .
+ENV GOOGLE_APPLICATION_CREDENTIALS=./service_account_keys/dataStore-service-account.json
 EXPOSE 9090
-
 CMD ["npm","start"]
