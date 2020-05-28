@@ -1,7 +1,7 @@
 import { Router } from "express";
 
 const routes = Router();
-const TradeService = require("../service/TradeService");
+const TradeService = require("../service");
 const pjson = require("../../package.json");
 const config = require("config");
 const os = require("os");
@@ -44,19 +44,13 @@ routes.get("/trade/all", (req, res) => {
 });
 
 routes.get("/trade/:id", (req, res) => {
-  if (!req.params.id || isNaN(req.params.id)) {
-    console.error("id is missing");
-    res.status(500).end('{error : "id is mandatory and must be numeric"}');
-  } else {
-    tradeService
-      .getById(parseInt(req.params.id))
-      .then((response) => res.end(JSON.stringify(response.data)))
-      .catch((err) => {
-        console.error(err);
-        if (err.error.endsWith("- not found")) res.status(404);
-        res.end(JSON.stringify(err));
-      });
-  }
+  tradeService
+    .getTradeById(parseInt(req.params.id))
+    .then((response) => res.end(JSON.stringify(response)))
+    .catch((err) => {
+      console.error(err);
+      res.status(500).end(JSON.stringify(err));
+    });
 });
 
 routes.post("/trade/save", (req, res) => {
@@ -67,44 +61,32 @@ routes.post("/trade/save", (req, res) => {
     })
     .catch((err) => {
       console.error(err);
-      res.end(JSON.stringify(err));
+      res.status(500).end(JSON.stringify(err));
     });
 });
 
 routes.post("/trade/update/:id", (req, res) => {
-  if (!req.params.id || isNaN(req.params.id)) {
-    console.error("id is missing");
-    res.status(500).end('{error : "id is mandatory and must be numeric"}');
-  } else {
-    tradeService
-      .update(parseInt(req.params.id), req.body)
-      .then((response) => {
-        res.end(JSON.stringify(response));
-      })
-      .catch((err) => {
-        console.error(err);
-        if (err.error.endsWith("- not found")) res.status(404);
-        res.end(JSON.stringify(err));
-      });
-  }
+  tradeService
+    .update(parseInt(req.params.id), req.body)
+    .then((response) => {
+      res.end(JSON.stringify(response));
+    })
+    .catch((err) => {
+      console.error(err);
+      res.status(500).end(JSON.stringify(err));
+    });
 });
 
 routes.delete("/trade/delete/:id", (req, res) => {
-  if (!req.params.id || isNaN(req.params.id)) {
-    console.error("id is missing");
-    res.status(500).end('{error : "id is mandatory and must be numeric"}');
-  } else {
-    tradeService
-      .removeById(parseInt(req.params.id))
-      .then((response) => {
-        res.end(JSON.stringify(response));
-      })
-      .catch((err) => {
-        console.error(err);
-        if (err.error.endsWith("- not found")) res.status(404);
-        res.end(JSON.stringify(err));
-      });
-  }
+  tradeService
+    .delete(parseInt(req.params.id))
+    .then((response) => {
+      res.end(JSON.stringify(response));
+    })
+    .catch((err) => {
+      console.error(err);
+      res.status(500).end(JSON.stringify(err));
+    });
 });
 
 export default routes;
