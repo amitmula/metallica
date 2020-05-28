@@ -1,7 +1,4 @@
-FROM alpine
-
-RUN apk add --update nodejs npm
-
+FROM node:alpine
 ADD package.json package.json
 RUN npm install
 COPY . .

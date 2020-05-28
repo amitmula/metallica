@@ -1,4 +1,4 @@
-const DataStoreClient = require("../db/DataStoreClient");
+import DataStoreClient from "@amitmula/metallica-datastore-client";
 
 const commodityEntities = require("../../collections/commodities.json");
 const counterPartyEntities = require("../../collections/counterparties.json");
