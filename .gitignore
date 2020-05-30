@@ -73,3 +73,7 @@ typings/
 *.jar
 
 target/
+
+service_account_keys/
+docker_commands
+kube_yamls
