@@ -1,21 +1,8 @@
 {
-    "appConfig" : {
-        "port": 9093,
-        "appId": "ref-data-service",
-        "appName" : "Ref Data Service",
-        "healthCheckUrl": "/serverhealth"
-    },
-    "eurekaConfig" : {
-        "host": "localhost",
-        "port": 8761,
-        "servicePath": "/eureka/apps/",
-        "fetchRegistry": true,
-        "registerWithEureka": true,
-        "maxRetries": 2
-    },
-    "mongoConfig" : {
-        "host": "localhost",
-        "port": 27017,
-        "dbName": "metallica" 
-    }
+  "appConfig": {
+    "port": 9093,
+    "appId": "ref-data-service",
+    "appName": "Ref Data Service",
+    "healthCheckUrl": "/health"
+  }
 }
