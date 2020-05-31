@@ -20,12 +20,10 @@ class PubSubClient {
   }
 
   subscribe(subscriptionName, pollTimeout, messageHandler) {
-    const messages = [];
     const subscription = this.pubSubClient.subscription(subscriptionName);
     subscription.on("message", messageHandler);
     setTimeout(() => {
       subscription.removeListener("message", messageHandler);
-      console.log(`${messageCount} message(s) received.`);
     }, pollTimeout * 1000);
   }
 }
