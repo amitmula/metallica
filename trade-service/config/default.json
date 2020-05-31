@@ -1,31 +1,8 @@
 {
-    "appConfig" : {
-        "port": 9090,
-        "appId": "trade-service",
-        "appName" : "Trade Service",
-        "healthCheckUrl": "/serverhealth"
-    },
-    "eurekaConfig" : {
-        "host": "localhost",
-        "port": 8761,
-        "servicePath": "/eureka/apps/",
-        "fetchRegistry": true,
-        "registerWithEureka": true,
-        "maxRetries": 2
-    },
-    "mongoConfig" : {
-        "host": "localhost",
-        "port": 27017,
-        "dbName": "metallica",
-        "collection": "trades" 
-    },
-    "apiEndpoint" : {
-      "protocol" : "http",
-      "host" : "localhost",
-      "port" : 8079,
-      "contextPath" : "api"
-    },
-    "messageBroker" : {
-      "serviceId" : "message-broker-service"
-    }
+  "appConfig": {
+    "port": 9090,
+    "appId": "trade-service",
+    "appName": "Trade Service",
+    "healthCheckUrl": "/health"
+  }
 }

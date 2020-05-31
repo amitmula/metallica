@@ -1,9 +1,10 @@
 import DataStoreClient from "@amitmula/metallica-datastore-client";
+import PubSubClient from "@amitmula/metallica-pubsub-client";
 import Trade from "../model/trade";
-
 class TradeService {
   constructor() {
     this.dataStoreClient = new DataStoreClient();
+    this.pubsubClient = new PubSubClient();
     console.log(`trade service constructor called`);
   }
 
@@ -33,9 +34,17 @@ class TradeService {
       }))
     );
     return new Promise((resolve, reject) => {
+      const flattenedTradeEntities = tradeEntitiesToPush.flatMap((x) => x);
       this.dataStoreClient
-        .save(tradeEntitiesToPush.flatMap((x) => x))
+        .save(flattenedTradeEntities)
         .then((saveResponse) => {
+          this.pubsubClient.publish(
+            "trade-events",
+            JSON.stringify({
+              action: "add",
+              data: flattenedTradeEntities,
+            })
+          );
           resolve({
             success: "true",
             data: trades,
